@@ -17,7 +17,7 @@ class CourseController extends Controller
             'data' => $courses,
         ]);
     }
-    //details cours 
+    //details de cours 
     public function show(int $id): JsonResponse {
         try {
             $course = $this->courseService->getCourseById($id);
@@ -30,10 +30,8 @@ class CourseController extends Controller
     public function myCourses(): JsonResponse
     {
         $courses = $this->courseService->getMyCoures(auth()->id());
-
         return response()->json(['data' => $courses]);
     }
-    //creation d'un cours
     public function store(Request $request): JsonResponse
     {
         $validated = $request->validate([
@@ -49,7 +47,6 @@ class CourseController extends Controller
             'data'    => $course,
         ], 201);
     }
-    //modification d'un cours
     public function update(Request $request, int $id): JsonResponse
     {
         $validated = $request->validate([
@@ -71,7 +68,6 @@ class CourseController extends Controller
         ]);
     }
 
-    //suppression d'un cours
     public function destroy(int $id): JsonResponse
     {
         try {
