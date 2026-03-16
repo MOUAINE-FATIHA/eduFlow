@@ -29,4 +29,8 @@ class Course extends Model
     {
         return $this->hasMany(Wishlist::class);
     }
+    public function interests(): BelongsToMany
+    {
+        return $this->belongsToMany(Interest::class);
+    }
 }

@@ -1,22 +1,19 @@
 <?php
-use Tymon\JWTAuth\Contracts\JWTSubject;
+
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class User extends Authenticatable implements JWTSubject{
-    /** @use HasFactory<UserFactory> */
+class User extends Authenticatable implements JWTSubject
+{
     use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
     protected $fillable = [
         'name',
         'email',
@@ -25,28 +22,24 @@ class User extends Authenticatable implements JWTSubject{
         'interests',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-            'interests'=>'array',
+            'password'          => 'hashed',
+            'interests'         => 'array',
         ];
+    }
+    public function setRoleAttribute($value): void
+    {
+        if (!$this->exists) {
+            $this->attributes['role'] = $value;
+        }
     }
 
     public function getJWTIdentifier()
@@ -59,13 +52,6 @@ class User extends Authenticatable implements JWTSubject{
         return [];
     }
 
-    // blocage de modification
-    public function setRoleAttribute($value): void
-    {
-        if (!$this->exists) {
-            $this->attributes['role'] = $value;
-        }
-    }
     public function courses(): HasMany
     {
         return $this->hasMany(Course::class, 'teacher_id');
@@ -81,4 +67,9 @@ class User extends Authenticatable implements JWTSubject{
         return $this->hasMany(Wishlist::class, 'student_id');
     }
 
+    public function interests(): BelongsToMany
+    {
+        return $this->belongsToMany(Interest::class);
+    }
+    
 }
