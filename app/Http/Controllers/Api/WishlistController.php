@@ -22,10 +22,8 @@ class WishlistController extends Controller
      *     @OA\Response(response=200, description="Wishlist de l'étudiant")
      * )
      */
-    public function index(): JsonResponse
-    {
+    public function index(): JsonResponse{
         $wishlist = $this->wishlistService->getWishlist(auth()->id());
-
         return response()->json(['data' => $wishlist]);
     }
 

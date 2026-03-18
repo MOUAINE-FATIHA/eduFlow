@@ -24,8 +24,12 @@ class CourseController extends Controller
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], $e->getCode());
         } 
+
         return response()->json(['data' => $course]);
     }
+
+
+    
     //cours d'enseignant
     public function myCourses(): JsonResponse
     {
