@@ -29,7 +29,7 @@ class CourseController extends Controller
     }
 
 
-    
+
     //cours d'enseignant
     public function myCourses(): JsonResponse
     {
@@ -72,13 +72,13 @@ class CourseController extends Controller
         ]);
     }
 
-    public function destroy(int $id): JsonResponse
-    {
+    public function destroy(int $id): JsonResponse{
         try {
             $this->courseService->deleteCourse($id, auth()->id());
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], $e->getCode());
         }
+        
         return response()->json(['message' => 'le cours etait supprimé']);
     }
 }
