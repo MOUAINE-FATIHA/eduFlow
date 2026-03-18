@@ -21,6 +21,8 @@ class User extends Authenticatable implements JWTSubject{
         'name',
         'email',
         'password',
+        'role',
+        'interests',
     ];
 
     /**
@@ -43,6 +45,7 @@ class User extends Authenticatable implements JWTSubject{
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'interests'=>'array',
         ];
     }
 
@@ -55,4 +58,27 @@ class User extends Authenticatable implements JWTSubject{
     {
         return [];
     }
+
+    // blocage de modification
+    public function setRoleAttribute($value): void
+    {
+        if (!$this->exists) {
+            $this->attributes['role'] = $value;
+        }
+    }
+    public function courses(): HasMany
+    {
+        return $this->hasMany(Course::class, 'teacher_id');
+    }
+
+    public function enrollments(): HasMany
+    {
+        return $this->hasMany(Enrollment::class, 'student_id');
+    }
+
+    public function wishlist(): HasMany
+    {
+        return $this->hasMany(Wishlist::class, 'student_id');
+    }
+
 }
