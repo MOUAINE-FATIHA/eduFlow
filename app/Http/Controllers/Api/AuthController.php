@@ -40,7 +40,6 @@ class AuthController extends Controller{
         ]);
 
         $result = $this->authService->register($validated);
-
         return response()->json([
             'message' => 'Inscription réussie.',
             'user'=> $result['user'],
@@ -77,7 +76,6 @@ class AuthController extends Controller{
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], $e->getCode());
         }
-
         return response()->json([
             'message' => 'Connexion réussie.',
             'user'=> $result['user'],
@@ -120,7 +118,6 @@ class AuthController extends Controller{
         $request->validate([
             'email' =>'required|email|exists:users,email',
         ]);
-
         try {
             $this->authService->resetPassword($request->only('email'));
         } catch (\Exception $e) {
