@@ -22,6 +22,7 @@ class CourseController extends Controller
         try {
             $course = $this->courseService->getCourseById($id);
         } catch (\Exception $e) {
+            
             return response()->json(['message' => $e->getMessage()], $e->getCode());
         } 
 
@@ -48,7 +49,7 @@ class CourseController extends Controller
         $course = $this->courseService->createCourse($validated, auth()->id());
         return response()->json([
             'message' => 'Cours cree avec succes.',
-            'data'    => $course,
+            'data' => $course,
         ], 201);
     }
     public function update(Request $request, int $id): JsonResponse
@@ -78,7 +79,7 @@ class CourseController extends Controller
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], $e->getCode());
         }
-        
+
         return response()->json(['message' => 'le cours etait supprimé']);
     }
 }
