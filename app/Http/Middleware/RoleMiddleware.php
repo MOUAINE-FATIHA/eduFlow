@@ -13,11 +13,9 @@ class RoleMiddleware
         if (!auth()->check()) {
             return response()->json(['message' => 'Non authentifie.'], 401);
         }
-
         if (!in_array(auth()->user()->role, $roles)) {
             return response()->json(['message' => 'Acces refuse. Role insuffisant.'], 403);
         }
-
         return $next($request);
     }
 }
