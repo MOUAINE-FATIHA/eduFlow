@@ -1,14 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-
 use App\Http\Controllers\Controller;
 use App\Services\AuthService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class AuthController extends Controller
-{
+class AuthController extends Controller{
     public function __construct(
         private AuthService $authService
     ) {}
@@ -33,21 +31,20 @@ class AuthController extends Controller
      *     @OA\Response(response=422, description="Validation échouée")
      * )
      */
-    public function register(Request $request): JsonResponse
-    {
+    public function register(Request $request): JsonResponse{
         $validated = $request->validate([
-            'name'     => 'required|string|max:255',
-            'email'    => 'required|string|email|unique:users,email',
+            'name' => 'required|string|max:255',
+            'email'=> 'required|string|email|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
-            'role'     => 'required|in:student,teacher',
+            'role'=> 'required|in:student,teacher',
         ]);
 
         $result = $this->authService->register($validated);
 
         return response()->json([
             'message' => 'Inscription réussie.',
-            'user'    => $result['user'],
-            'token'   => $result['token'],
+            'user'=> $result['user'],
+            'token'=> $result['token'],
         ], 201);
     }
 
@@ -71,7 +68,7 @@ class AuthController extends Controller
     public function login(Request $request): JsonResponse
     {
         $validated = $request->validate([
-            'email'    => 'required|email',
+            'email'=> 'required|email',
             'password' => 'required|string',
         ]);
 
@@ -83,8 +80,8 @@ class AuthController extends Controller
 
         return response()->json([
             'message' => 'Connexion réussie.',
-            'user'    => $result['user'],
-            'token'   => $result['token'],
+            'user'=> $result['user'],
+            'token'=> $result['token'],
         ]);
     }
 
@@ -97,10 +94,8 @@ class AuthController extends Controller
      *     @OA\Response(response=200, description="Déconnexion réussie")
      * )
      */
-    public function logout(): JsonResponse
-    {
+    public function logout(): JsonResponse{
         $this->authService->logout();
-
         return response()->json(['message' => 'Déconnexion réussie.']);
     }
 
@@ -123,15 +118,14 @@ class AuthController extends Controller
     public function resetPassword(Request $request): JsonResponse
     {
         $request->validate([
-            'email' => 'required|email|exists:users,email',
+            'email' =>'required|email|exists:users,email',
         ]);
 
         try {
             $this->authService->resetPassword($request->only('email'));
         } catch (\Exception $e) {
-            return response()->json(['message' => $e->getMessage()], $e->getCode());
+            return response()->json(['message'=> $e->getMessage()], $e->getCode());
         }
-
-        return response()->json(['message' => 'Lien de réinitialisation envoyé.']);
+        return response()->json(['message'=> 'Lien de réinitialisation envoyé.']);
     }
 }
