@@ -1,15 +1,13 @@
 <?php
 
 namespace App\Repositories;
-
 use App\Models\Course;
 use App\Repositories\Interfaces\CourseRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 
 class CourseRepository implements CourseRepositoryInterface
 {
-    public function getAll(): Collection
-    {
+    public function getAll(): Collection{
         return Course::with('teacher:id,name,email')->get();
     }
 
@@ -36,8 +34,6 @@ class CourseRepository implements CourseRepositoryInterface
 
     public function getByTeacher(int $teacherId): Collection
     {
-        return Course::with('teacher:id,name,email')
-                     ->where('teacher_id', $teacherId)
-                     ->get();
+        return Course::with('teacher:id,name,email')->where('teacher_id', $teacherId)->get();
     }
 }
