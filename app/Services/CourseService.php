@@ -19,7 +19,6 @@ class CourseService
     public function getCourseById(int $id): Course
     {
         $course = $this->courseRepository->findById($id);
-
         if (!$course) {
             throw new \Exception('Cours introuvable.', 404);
         }
@@ -50,7 +49,7 @@ class CourseService
             throw new \Exception('Cours introuvable.', 404);
         }
         if ($course->teacher_id !== $teacherId) {
-            throw new \Exception('Vous n\'etes pas autorise à modifier ce cours.', 403);
+            throw new \Exception('pas autorise à modifier ce cours', 403);
         }
 
         return $this->courseRepository->update($course, $data);
@@ -64,7 +63,7 @@ class CourseService
             throw new \Exception('Cours introuvable.', 404);
         }
         if ($course->teacher_id !== $teacherId) {
-            throw new \Exception('Vous n\'etes pas autorise à supprimer ce cours.', 403);
+            throw new \Exception('pas autorise à supprimer ce cours', 403);
         }
 
         return $this->courseRepository->delete($course);
