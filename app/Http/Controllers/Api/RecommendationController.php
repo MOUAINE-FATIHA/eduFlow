@@ -25,7 +25,6 @@ class RecommendationController extends Controller
     public function index(): JsonResponse
     {
         $courses = $this->recommendationService->getRecommendedCourses();
-
         return response()->json(['data' => $courses]);
     }
 
@@ -57,7 +56,6 @@ class RecommendationController extends Controller
         ]);
 
         $this->recommendationService->syncUserInterests($validated['interest_ids']);
-
         return response()->json(['message' => 'Intérêts mis à jour avec succès.']);
     }
 }
