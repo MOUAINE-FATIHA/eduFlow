@@ -45,16 +45,15 @@ class RecommendationController extends Controller
      *             )
      *         )
      *     ),
-     *     @OA\Response(response=200, description="Intérêts mis à jour")
+     *     @OA\Response(response=200 , description="Intérêts mis à jour")
      * )
      */
     public function updateInterests(Request $request): JsonResponse
     {
         $validated = $request->validate([
-            'interest_ids'   => 'required|array',
-            'interest_ids.*' => 'integer|exists:interests,id',
+            'interest_ids'=> 'required|array',
+            'interest_ids.*'=> 'integer|exists:interests,id',
         ]);
-
         $this->recommendationService->syncUserInterests($validated['interest_ids']);
         return response()->json(['message' => 'Intérêts mis à jour avec succès.']);
     }
