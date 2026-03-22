@@ -17,7 +17,7 @@ class RecommendationController extends Controller
      * @OA\Get(
      *     path="/student/recommendations",
      *     tags={"Recommendations"},
-     *     summary="Cours recommandés selon les intérêts de l'étudiant",
+     *     summary=" Cours recommandés selon les intérêts de l'étudiant",
      *     security={{"bearerAuth":{}}},
      *     @OA\Response(response=200, description="Liste des cours recommandés")
      * )

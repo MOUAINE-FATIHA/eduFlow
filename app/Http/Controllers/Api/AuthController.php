@@ -20,8 +20,8 @@ class AuthController extends Controller{
      *         required=true,
      *         @OA\JsonContent(
      *             required={"name","email","password","password_confirmation","role"},
-     *             @OA\Property(property="name", type="string", example="Alice"),
-     *             @OA\Property(property="email", type="string", example="alice@test.com"),
+     *             @OA\Property(property="name", type="string", example="fatiha"),
+     *             @OA\Property(property="email", type="string", example="fatiha@gmail.com"),
      *             @OA\Property(property="password", type="string", example="password123"),
      *             @OA\Property(property="password_confirmation", type="string", example="password123"),
      *             @OA\Property(property="role", type="string", enum={"student","teacher"})
@@ -56,7 +56,7 @@ class AuthController extends Controller{
      *         required=true,
      *         @OA\JsonContent(
      *             required={"email","password"},
-     *             @OA\Property(property="email", type="string", example="alice@test.com"),
+     *             @OA\Property(property="email", type="string", example="fatiha@gmail.com"),
      *             @OA\Property(property="password", type="string", example="password123")
      *         )
      *     ),
@@ -106,7 +106,7 @@ class AuthController extends Controller{
      *         required=true,
      *         @OA\JsonContent(
      *             required={"email"},
-     *             @OA\Property(property="email", type="string", example="alice@test.com")
+     *             @OA\Property(property="email", type="string", example="fatiha@gmail.com")
      *         )
      *     ),
      *     @OA\Response(response=200, description="Lien envoyé"),
